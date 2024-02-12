@@ -32,6 +32,7 @@ SockIt introduces a blend of Unix socket programming and concurrency, drawing in
 
 ## "SOCKit in One Slide"
 
+```
 1.  find DEST1 @ 192.168.1.1:10
 2.  find DEST2 @ 192.168.1.2:20
 3.  find DEST3 @ 192.168.1.3
@@ -61,4 +62,5 @@ SockIt introduces a blend of Unix socket programming and concurrency, drawing in
 27. let dests = [DEST1, DEST2]
 28. "Hello" ~{wait_to_send}~> |dests| &  !! Wait, then send concurrently.
 29. "Hello" |~{send, send_by_character}~> dests| &  !! Use different protocols.
+```
 
