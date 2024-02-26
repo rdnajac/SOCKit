@@ -19,7 +19,7 @@ let handle_client client_sock =
             if bytes_read = 0 then raise Exit; (* End of file/connection closed by client *)
             (* Print the received data to stdout *)
             print_string (Bytes.sub_string buffer 0 bytes_read);
-            flush stdout;  (* Ensure that the output is displayed immediately *)
+            Stdlib.flush Stdlib.stdout (* Flush stdout to ensure the data is printed immediately *)
         done
     with
     | Exit -> ()  (* Gracefully exit the loop when the client disconnects *)

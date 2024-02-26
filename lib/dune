@@ -1,0 +1,3 @@
+(library
+ (name SOCKit)
+ (libraries unix))

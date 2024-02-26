@@ -41,7 +41,18 @@ ocamlopt -I +unix unix.cmxa listener.ml -o listener
 ```
 This compiles `listener.ml` to a native executable named `listener`, using the `unix.cmxa` library for optimal performance.
 
-## Conclusion
 
-Choose the method that best fits your development and testing workflow. Direct interpretation with `ocaml` is great for quick tests, while bytecode and native code compilation methods offer better performance and efficiency for more serious development or production use.
+### Compiling with .mli
+```
+ocamlopt unix.cmxa -c listener.ml
+ocamlopt unix.cmxa -c listener.mli
+```
+
+### Generating documentation
+```
+odoc compile --package=my-package-name listener.cmt
+odoc compile --package=my-package-name listener.cmti
+odoc link listener.odoc
+odoc html -o html listener.odocl
+```
 

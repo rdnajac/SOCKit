@@ -1,0 +1,4 @@
+(executable
+ (public_name SOCKit)
+ (name main)
+ (libraries SOCKit unix))

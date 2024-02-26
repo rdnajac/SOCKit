@@ -6,6 +6,7 @@
 - Hakim El Ghazi (Float Goat)
 - Ryan Najac (Manager)
 - Stacey Yao (Tester)
+
 # Motivation
 
 The Socket-Oriented Concurrency Kit Unix combines Unix socket programming with bash-like syntax for safe and easy concurrency with the robustness of a C program. With improvements like warning compiler warnings for potential race conditions and deadlocks, SOCKit aims to make concurrent programming safer and more accessible leveraging `source` and `destination` data type alongside a pipelining syntax. The language facilitates (pseudo-)multi-threaded and asynchronous inter-client communication and simplifies the flow of data across devices. SOCKit is an ideal choice for developers focused on efficient data transfer and real-time communication.
@@ -49,3 +50,4 @@ set protocol wait_to_send (port, msg) -{send_by_character}->
 !! Send encrypted msg to DEST1, then DEST2 and port 30 of DEST3
 send{"Hello", "aX82kLei19g"} -> encrypt -> DEST1 | DEST2 & DEST3:30
 ```
+
