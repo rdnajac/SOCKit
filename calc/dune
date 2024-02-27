@@ -1,0 +1,13 @@
+(executable
+ (name calc)
+ (libraries str ast)
+ (modules calc parser scanner)
+)
+(library
+ (name ast)
+ (modules ast)
+  (modules_without_implementation ast)
+)
+(ocamllex scanner) 
+(ocamlyacc parser)
+

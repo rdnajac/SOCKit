@@ -31,6 +31,30 @@ opam update          # Update the package list
 opam upgrade         # Upgrade the installed packages to their latest version
 ```
 
+Once you have opam installed, let's get some packages.
+
+## [ocamlyacc](https://ocaml.org/docs/install.html)
+OCamlYacc is a parser generator for the Objective Caml language. It takes a formal grammar description in BNF and produces an OCaml module that can parse the grammar.
+```
+$ opam install ocamlyacc
+```
+
+## [ocamlex](https://ocaml.org/docs/install.html)
+OCamlLex is a lexer generator for the Objective Caml language. It takes a formal description of a lexical syntax and produces a lexer module.
+```
+$ opam install ocamllex
+```
+
+## [odoc](https://ocaml.github.io/odoc/)
+Odoc is a documentation generator for OCaml. It reads `.cmt` files and generates HTML documentation.
+
+Installation:
+```
+$ opam install odoc
+```
+
+and finally,
+
 ## [Dune](https://dune.readthedocs.io/en/stable/quick-start.html)
 We use Dune to build the project. Installation:
 ```
@@ -123,12 +147,4 @@ This setup automatically formats and includes the changes in your commit.
 Read the docs: https://dune.readthedocs.io/en/stable/
 
 ---
-
-## [odoc](https://ocaml.github.io/odoc/)
-Odoc is a documentation generator for OCaml. It reads `.cmt` files and generates HTML documentation.
-
-Installation:
-```
-$ opam install odoc
-```
 
