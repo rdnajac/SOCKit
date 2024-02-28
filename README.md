@@ -3,7 +3,7 @@ This project is built with [dune](https://dune.build/).
 
 If you're cloning this repo, this project, don't `dune init` it. It's already been initialized.
 
-Run `dune build` to build, `dune install` to install`, and `dune exec -- <exe>` to run.
+Run `dune build` to build, `dune install` to install, and `dune exec -- <exe>` to run.
 
 ## dune-project
 This file is used to specify the version of dune to use, among other globs.
