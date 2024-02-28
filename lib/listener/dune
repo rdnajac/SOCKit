@@ -1,0 +1,8 @@
+; lib/listener/dune
+
+(library
+ (name listener)
+ (public_name SOCK.listener)
+ (synopsis "A simple listener for Unix domain sockets")
+ (modules listener)
+ (libraries unix))

@@ -1,4 +1,24 @@
+; bin/dune
+
 (executable
- (public_name SOCKit)
+ (name calc)
+ (public_name calc)
+ (modules calc)
+ (libraries libcalc))
+
+(executable
+ (name calc2)
+ (public_name calc2)
+ (modules calc2)
+ (libraries libcalc2))
+
+(executable
+ (name listener5000)
+ (public_name listener5000)
+ (modules listener5000)
+ (libraries SOCK.listener))
+
+(executable
  (name main)
- (libraries SOCKit unix))
+ (public_name hello)
+ (modules main))

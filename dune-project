@@ -1,11 +1,8 @@
 (lang dune 3.13)
 
-(name SOCKit)
+(name SOCK)
 
 (generate_opam_files true)
-
-(source
- (github rdnajac/SOCKit))
 
 (authors
   "Quentin Autry"
@@ -27,14 +24,16 @@
 
 (license LICENSE)
 
-(documentation https://url/to/documentation)
-
 (package
-  (name SOCKit)
+  (name SOCK)
   (synopsis "Socket Oriented Concurrency Kit")
   (description "PLT Spring 2024 Team Programming Project")
+  (documentation https://url/to/documentation)
   (depends ocaml dune)
+  (source
+    (github rdnajac/SOCKit))
   (tags
     (topics "to describe" your project)))
+  (bug_reports https://github.com/rdnajac/SOCKit/issues)
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project

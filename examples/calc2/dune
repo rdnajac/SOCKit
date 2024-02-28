@@ -1,8 +1,0 @@
-(executable
- (name calc2)
- (modules calc2 parser lexer)
-)
-
-(ocamllex lexer)
-(ocamlyacc parser)
-

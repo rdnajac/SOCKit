@@ -1,4 +1,0 @@
-(executable
-  (name listener)
-  (libraries unix))
-

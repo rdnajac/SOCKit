@@ -1,0 +1,10 @@
+; lib/calc2/dune
+
+(library
+ (name libcalc2)
+ (public_name SOCK.calc2)
+ (modules parser lexer))
+
+(ocamllex lexer)
+
+(ocamlyacc parser)

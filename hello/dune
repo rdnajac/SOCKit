@@ -1,3 +1,5 @@
+; hello/dune
+
 (executable
  (name hello)
  (libraries lwt.unix))
