@@ -1,0 +1,126 @@
+%--------------------
+% Packages
+%-------------------
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx} % Use Times Font
+
+\usepackage[pdftex]{graphicx} % Required for including pictures
+\usepackage[pdftex,linkcolor=black,pdfborder={0 0 0}]{hyperref} % Format links for pdf
+\usepackage{calc} % To reset the counter in the document after title page
+\usepackage{enumitem} % Includes lists
+
+\frenchspacing % No double spacing between sentences
+\linespread{1.2} % Set linespace
+\usepackage[a4paper, lmargin=0.1666\paperwidth, rmargin=0.1666\paperwidth, tmargin=0.1111\paperheight, bmargin=0.1111\paperheight]{geometry}
+
+\usepackage[all]{nowidow} % Tries to remove widows
+\usepackage[protrusion=true,expansion=true]{microtype} % Improves typography, load after fontpackage is selected
+
+\usepackage{listings} % For code listing
+
+\hypersetup{
+    pdftitle={SOCKit_proposal},
+    pdfauthor={rdn2108},
+    pdfsubject={coms4115}
+}
+
+%-----------------------
+% Code block formatting
+%-----------------------
+% Custom listing style
+\lstdefinestyle{mystyle}{
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+%-----------------------
+% Maketitle
+%-----------------------
+\title{SOCKit: Socket-Oriented Concurrency Kit}
+\author{
+    Quentin Autry\\
+    \texttt{(System Architect)}
+    \and
+    Quinn Booth\\
+    \texttt{(Language Guru)}
+    \and
+    Hakim El Ghazi\\
+    \texttt{(Float Goat)}
+    \and
+    Ryan Najac\\
+    \texttt{(Manager)}
+    \and
+    Stacey Yao\\
+    \texttt{(Tester)}
+}
+
+%-----------------------
+% Begin document
+%-----------------------
+\begin{document}
+\maketitle
+
+\section{Motivation}
+The Socket-Oriented Concurrency Kit Unix combines Unix socket programming with bash-like syntax for safe and easy concurrency with the robustness of a C program. With improvements like warning compiler warnings for potential race conditions and deadlocks, SOCKit aims to make concurrent programming safer and more accessible leveraging `source` and `destination` data type alongside a pipelining syntax. The language facilitates (pseudo-)multi-threaded and asynchronous ininter-client communication and simplifies the flow of data across devices. SOCKit is an ideal choice for developers focused on efficient data transfer and real-time communication.
+
+\section{Language Paradigms and Features}
+
+SOCKit is an imperative, weakly but statically typed language with static scope and a strict evaluation order, designed for clarity and predictability. It supports efficient concurrency, socket programming, and data pipelining to enhance processing efficiency. Future considerations include compiler-enforced mutual exclusion for concurrency safety, built-in regex support for easier text processing, and automatic thread garbage collection for improved memory management.
+
+\section{“Hello World”}
+\begin{lstlisting}[numbers=none]
+send{"Hello, world!"}-> DEST & DEST <- 192.168.1.1:8080
+\end{lstlisting}
+
+
+\newpage
+\section{“Language in One Slide”}
+\begin{lstlisting}
+SRC <- localhost
+DEST1 <- 192.168.1.1:10
+DEST2 <- 192.168.1.2:20
+DEST3 <- 192.168.1.3
+
+
+func encrypt (DATA, key) -> encrypted_msg
+-> ~DATA ? "EMPTY MSG! "
+-> DATA ? msg == key ? msg
+
+set encrypted_msg ""
+for c in i in msg
+set encrypted_char (c + key[i % len(key)]) % 256
+encrypted_msg += encrypted_char
+
+
+set protocol send_by_character (msg) -{}->
+for i in msg
+-> i
+
+
+set protocol wait_to_send (port, msg) \
+-{send_by_character}->
+set received listen(SRC:port)
+wait while ~receive
+send{"BAD"} ? ~received : -> msg
+
+
+!! Send encrypted msg to DEST1, then DEST2 and port 30 of DEST3
+send{"Hello", "aX82kLei19g"} -> encrypt -> \
+DEST1 | DEST2 & DEST3:30
+
+\end{lstlisting}
+\end{document}
+

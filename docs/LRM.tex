@@ -1,0 +1,66 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx} % Use Times Font
+
+\usepackage{calc} % To reset the counter in the document after title page
+\usepackage{enumitem} % Includes lists
+\usepackage{tocloft} % For customizing the Table of Contents
+
+\frenchspacing % No double spacing between sentences
+\linespread{1.2} % Set linespace
+\usepackage[a4paper, lmargin=0.1666\paperwidth, rmargin=0.1666\paperwidth, tmargin=0.1111\paperheight, bmargin=0.1111\paperheight]{geometry}
+
+\usepackage[all]{nowidow} % Tries to remove widows
+\usepackage[protrusion=true,expansion=true]{microtype} % Improves typography, load after font package is selected
+
+\usepackage{listings} % For code listing
+\usepackage{xcolor} % Required for specifying custom colors
+
+% Import the SOCKit language definition
+\input{SOCK.tex}
+
+\title{SOCKit: Language Reference Manual}
+\author{
+    Quentin Autry\\
+        \texttt{(System Architect)} \and
+    Quinn Booth\\
+        \texttt{(Language Guru)} \and
+    Hakim El Ghazi\\
+        \texttt{(Float Goat)} \and
+    Ryan Najac\\
+        \texttt{(Manager)} \and
+    Misha Smirnov\\
+        \texttt{(TBD)} \and
+    Stacey Yao\\
+        \texttt{(Tester)}
+}
+\date{March 8, 2024}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Overview}
+Sections and subsections will be automatically added to the table of contents.
+
+\subsection{SOCKit Code Example}
+Below is a small example of using the SOCKit language highlighting defined in \texttt{SOCK.tex}:
+
+\begin{lstlisting}[language=SOCKit]
+bool is either true or false
+\end{lstlisting}
+
+\section{Kewords}
+SOCKit has keywords.
+
+\subsection{Primitive Types}
+SOCKit has primitive types: \texttt{int}, \texttt{float}, \texttt{bool}, and \texttt{char}.
+
+\subsubsection{Integers}
+\texttt{int} is the signed integer type.
+
+\end{document}
+
