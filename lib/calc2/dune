@@ -2,7 +2,7 @@
 
 (library
  (name libcalc2)
- (public_name SOCK.calc2)
+ (public_name sock.calc2)
  (modules parser lexer))
 
 (ocamllex lexer)

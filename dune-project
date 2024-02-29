@@ -1,12 +1,11 @@
 (lang dune 3.13)
 
-(name SOCK)
+(name sock)
 
 (generate_opam_files true)
 
 (authors
   "Quentin Autry"
-  "Quinn Booth"
   "Hakim El Ghazi"
   "Ryan Najac"
   "Misha Smirnov"
@@ -15,7 +14,6 @@
 
 (maintainers
   "Quentin Autry"
-  "Quinn Booth"
   "Hakim El Ghazi"
   "Ryan Najac"
   "Misha Smirnov"
@@ -25,7 +23,7 @@
 (license LICENSE)
 
 (package
-  (name SOCK)
+  (name sock)
   (synopsis "Socket Oriented Concurrency Kit")
   (description "PLT Spring 2024 Team Programming Project")
   (documentation https://url/to/documentation)

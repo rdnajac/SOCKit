@@ -3,20 +3,10 @@ opam-version: "2.0"
 synopsis: "Socket Oriented Concurrency Kit"
 description: "PLT Spring 2024 Team Programming Project"
 maintainer: [
-  "Quentin Autry"
-  "Quinn Booth"
-  "Hakim El Ghazi"
-  "Ryan Najac"
-  "Misha Smirnov"
-  "Stacey Yao"
+  "Quentin Autry" "Hakim El Ghazi" "Ryan Najac" "Misha Smirnov" "Stacey Yao"
 ]
 authors: [
-  "Quentin Autry"
-  "Quinn Booth"
-  "Hakim El Ghazi"
-  "Ryan Najac"
-  "Misha Smirnov"
-  "Stacey Yao"
+  "Quentin Autry" "Hakim El Ghazi" "Ryan Najac" "Misha Smirnov" "Stacey Yao"
 ]
 license: "LICENSE"
 tags: ["topics" "to describe" "your" "project"]

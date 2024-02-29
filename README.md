@@ -41,3 +41,7 @@ There are a few examples here now, but they will be moved or deleted eventually.
 ## src
 Right now, this is just a renamed nanoc scanner.
 
+# TODO
+require `dune clean` and `dune fmt` before pushing to the repo
+* set up a git hook
+

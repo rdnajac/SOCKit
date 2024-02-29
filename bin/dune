@@ -16,7 +16,7 @@
  (name listener5000)
  (public_name listener5000)
  (modules listener5000)
- (libraries SOCK.listener))
+ (libraries sock.listener))
 
 (executable
  (name main)

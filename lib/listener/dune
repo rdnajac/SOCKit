@@ -2,7 +2,7 @@
 
 (library
  (name listener)
- (public_name SOCK.listener)
+ (public_name sock.listener)
  (synopsis "A simple listener for Unix domain sockets")
  (modules listener)
  (libraries unix))
