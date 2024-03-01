@@ -1,0 +1,7 @@
+; test/dune
+
+(executable
+ (name tokenstring)
+ (libraries sock.SOCKlib)
+ (modules tokenstring))
+

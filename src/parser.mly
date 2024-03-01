@@ -1,7 +1,6 @@
 /* Ocamlyacc parser for SOCKit */
 
 %{
-open Ast
 %}
 
 %token SEMI LPAREN RPAREN LBRACE RBRACE PLUS MINUS ASSIGN

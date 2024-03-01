@@ -17,6 +17,6 @@ ocamlbuild SOCK.native
 ### Compiler files
 -  `ast.ml`: abstract syntax tree (AST) -- a list of strings for the lexer
 -  `lexer.mll`: scanner -- convert the source code into a sequence of tokens
--  `parse.mly`: parser -- parse the sequence of tokens into a list of strings
+-  `parser.mly`: parser -- parse the sequence of tokens into a list of strings
 -  `SOCK.ml`: main file -- the main file to run the SOCKscanner
 
