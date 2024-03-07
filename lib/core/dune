@@ -1,0 +1,8 @@
+(library
+ (name SOCKcore)
+ (modules ast lexer parser tmp)
+ (modules_without_implementation ast))
+
+(ocamllex lexer)
+
+(ocamlyacc parser)

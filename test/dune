@@ -1,7 +1,4 @@
-; test/dune
-
-(executable
- (name tokenstring)
- (libraries sock.SOCKlib)
- (modules tokenstring))
-
+(test
+ (name test_hello)
+ (libraries hello)
+ )
