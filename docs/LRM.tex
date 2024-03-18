@@ -1,63 +1,102 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{mathptmx} % Use Times Font
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{microtype}      % improved text appearance
+\usepackage[T1]{fontenc}    % better font encoding
+\usepackage[utf8]{inputenc} % input encoding
+\usepackage{mathptmx}       % times new roman
+\usepackage{listings}       % code listings
+\usepackage{xcolor}         % color definitions
+\usepackage{enumitem}       % custom list configurations
+\usepackage{tocloft}        % table of contents customization
 
-\usepackage{enumitem} % Includes lists
-\usepackage{tocloft} % For customizing the Table of Contents
+\renewcommand{\baselinestretch}{1.2}
 
-\frenchspacing % No double spacing between sentences
-\linespread{1.2} % Set linespace
-\usepackage[a4paper, lmargin=0.1666\paperwidth, rmargin=0.1666\paperwidth, tmargin=0.1111\paperheight, bmargin=0.1111\paperheight]{geometry}
+% import language definition
+%\input{SOCK.tex}
 
-\usepackage[all]{nowidow} % Tries to remove widows
-\usepackage[protrusion=true,expansion=true]{microtype} % Improves typography, load after font package is selected
-
-\usepackage{listings} % For code listing
-\usepackage{xcolor} % Required for specifying custom colors
-
-% Import the SOCKit language definition
-\input{SOCK.tex}
-
+% metadata for title page
 \title{SOCKit Reference Manual}
 \author{
-    Quentin Autry\\
-        \texttt{(System Architect)} \and
-    Hakim El Ghazi\\
-        \texttt{(Float Goat)} \and
-    Ryan Najac\\
-        \texttt{(Manager)} \and
-    Misha Smirnov\\
-        \texttt{(Language Guru)} \and
-    Stacey Yao\\
-        \texttt{(Tester)}
+    \begin{tabular}{rl} % "r" for right-aligned names, "l" for left-aligned titles
+    Quentin Autry & \texttt{System Architect} \\
+    Hakim El Ghazi & \texttt{Float Goat} \\
+    Ryan Najac & \texttt{Manager} \\
+    Misha Smirnov & \texttt{Language Guru} \\
+    Stacey Yao & \texttt{Tester}
+    \end{tabular}
 }
-\date{March 8, 2024}
+\date{COMS W4115 Programming Languages and Translators\\March 22, 2024}
 
 \begin{document}
+\thispagestyle{empty}
 \maketitle
 \newpage
-\tableofcontents
+\tableofcontents % Generates the table of contents
 \newpage
 
 \section{Overview}
 Sections and subsections will be automatically added to the table of contents.
 
-\subsection{SOCKit Code Example}
-Below is a small example of using the SOCKit language highlighting defined in \texttt{SOCK.tex}:
+\section{Lexical conventions}
+There are six kinds of tokens: identifiers, keywords, constants, strings, expression operators, and other separators.
 
-\begin{lstlisting}[language=SOCKit]
-bool is either true or false
-\end{lstlisting}
+In general, blanks, tabs, newlines, and comments as described below are ignored except as they serve to separate tokens. At least one of these characters is required to separate otherwise adjacent identifiers, constants, and certain operator-pairs.
 
-\section{Kewords}
-SOCKit has keywords.
+\subsection{Comments}
+The characters `/*` introduce a comment, which terminates with the characters `*/`. Single-line comments prefixed with `//` are also supported.
+
+\subsection{Identifiers (Names)}
+An identifier is a sequence of letters and digits; the first character must be a letter. The underscore character \texttt{\_} is considered a letter. Upper and lower case letters are distinct.
+
+\section{Keywords}
+The following identifiers are reserved for use as keywords and may not be used otherwise:
+
+\subsection{Constants}
+There are several kinds of constants, as follows:
+\subsubsection{Integer Constants}
+In keeping with the spirit of minimalism, we only support nonnegative integer constants. The value of an integer constant is the sequence of digits. We do, however, support different bases for integer constants. The base is indicated by a prefix that is either `0x` or `0X` for hexadecimal, `0b` for binary, and nothing for decimal.
+
+\subsubsection{data}
+The keyword \texttt{data} is used to declare a variable. It works similar to how Unix treats everything as files (i.e., everything data). It's basically a void pointer, letting the programmer know that this data exists somewhere.
+
+\subsubsection{null}
+The keyword \texttt{null} is used to declare a null value. This is the absence of a value. Uninitialized variables are implicitly null.
 
 \subsection{Primitive Types}
 SOCKit has primitive types: \texttt{int}, \texttt{float}, \texttt{bool}, and \texttt{char}.
 
-\subsubsection{Integers}
-\texttt{int} is the signed integer type.
+\section{Syntax Notation}
+The syntax notation used in this manual follows the syntax notation in the "C Reference Manual" (Ritchie, 1975):
+
+\begin{itemize}
+    \item \texttt{italic} is used for non-terminal symbols.
+    \item \texttt{bold} is used for terminal symbols.
+    \item \texttt{[ ... ]} is used for optional items.
+    \item \texttt{\{ ... \}} is used for repeated items.
+    \item \texttt{|} is used to separate alternatives.
+    \item \texttt{...} is used for a syntactic category that can be repeated.
+\end{itemize}
+
+\section{Data Types}
+No data types, everything is void pointers.
+
+\section{Expressions}
+The precedence of expression operators is the same as the order of the major subsections of this section (highest precedence first).
+
+\appendix
+\section*{APPENDIX}
+\addcontentsline{toc}{section}{APPENDIX: Syntax Summary} % Adds the appendix to the table of contents
+\subsection*{Syntax Summary}
+
+\begin{enumerate}
+    \item Expressions.
+    \begin{verbatim}
+    expression:
+        primary
+        * expression
+    \end{verbatim}
+    \item Declarations...
+    % Add your declarations syntax here
+\end{enumerate}
 
 \end{document}
-

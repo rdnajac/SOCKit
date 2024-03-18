@@ -13,11 +13,7 @@
   )
 
 (maintainers
-  "Quentin Autry"
-  "Hakim El Ghazi"
   "Ryan Najac"
-  "Misha Smirnov"
-  "Stacey Yao"
   )
 
 (license LICENSE)
@@ -27,7 +23,7 @@
   (synopsis "Socket Oriented Concurrency Kit")
   (description "PLT Spring 2024 Team Programming Project")
   (documentation https://url/to/documentation)
-  (depends ocaml dune)
+  (depends ocaml dune ocamllex ocamlyacc)
   (source
     (github rdnajac/SOCKit))
   (tags

@@ -1,29 +1,17 @@
 % SOCKit language definition for listings
 \lstdefinelanguage{SOCKit}{
-    % You can specify the language to base on, for example, 'Python' or 'C'.
-    % If left empty, it doesn't inherit any styles from other languages.
-    % language=Python,
-    
-    % List of keywords in the SOCKit language
-    keywords={true, false, bool},
-    
-    % Comment styles in the SOCKit language
-    % Define line comment style (if applicable):
-    % morecomment=[l]{//},
-    % Define block comment style (if applicable):
-    % morecomment=[s]{/*}{*/},
-    
-    % String styles in the SOCKit language
-    % Define single-quoted strings (if applicable):
-    % morestring=[b]',
-    % Define double-quoted strings (if applicable):
-    % morestring=[b]",
-    
-    % The style for keywords, comments, and strings can be customized here
-    % keywordstyle=\color{blue},
-    % commentstyle=\color{green},
-    % stringstyle=\color{red},
-    
+    keywords={true, false, bool}, % Keywords
+
+    morecomment=[l]{//}, % Line comments
+    morecomment=[s]{/*}{*/}, % Block comments
+
+    morestring=[b]', % Single-quoted strings
+    morestring=[b]", % Double-quoted strings
+
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    stringstyle=\color{red},
+
     % Basic styling for code listing
     basicstyle=\ttfamily\footnotesize,
     breakatwhitespace=false,
@@ -31,14 +19,11 @@
     captionpos=b,
     keepspaces=true,
     numbers=left,                    % Line numbers on the left
-    numberstyle=\tiny,               % Line numbers styling
+    numberstyle=\tiny\color{gray},   % Ensure that the color package is included in your main document.
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
     tabsize=2,
-    
-    % If you want to add a background color to listings, uncomment the following line:
-    % backgroundcolor=\color{backcolour},
 }
 
 % End of SOCKit language definition

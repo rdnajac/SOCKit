@@ -2,9 +2,7 @@
 opam-version: "2.0"
 synopsis: "Socket Oriented Concurrency Kit"
 description: "PLT Spring 2024 Team Programming Project"
-maintainer: [
-  "Quentin Autry" "Hakim El Ghazi" "Ryan Najac" "Misha Smirnov" "Stacey Yao"
-]
+maintainer: ["Ryan Najac"]
 authors: [
   "Quentin Autry" "Hakim El Ghazi" "Ryan Najac" "Misha Smirnov" "Stacey Yao"
 ]
@@ -16,6 +14,8 @@ bug-reports: "https://github.com/rdnajac/SOCKit/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.13"}
+  "ocamllex"
+  "ocamlyacc"
   "odoc" {with-doc}
 ]
 build: [
