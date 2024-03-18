@@ -1,9 +1,31 @@
 # SOCKit: Socker-Oriented Concurrency Kit
-This project is built with [dune](https://dune.build/).
+This project is built with [dune](https://dune.build/). Clone the repo and run `dune build` to build the project (don't `dune init`!).
 
-If you're cloning this repo, this project, don't `dune init` it. It's already been initialized.
+```sh
+git clone git@github.com:rdnajac/SOCKit.git
+cd SOCKit
+dune build
+```
 
-Run `dune build` to build, `dune install` to install, and `dune exec -- <exe>` to run.
+Optionally, run `dune install` to install the project to your system.
+
+### Hello World
+To make sure the project builds correctly run `dune exec -- sockit --hello`.
+If you opted to install the project, you can simply run `sockit --hello` instead.
+
+### SOCKopt
+The `sockit` executable takes a few options. Run `sockit --help` to see them all.
+
+#### files
+`SOCKit` can take a files as an argumen with option `-f` or `--file`.
+
+#### SOCKrepl
+You can run the read-eval-print loop with the `-r` or `--repl` option.
+
+#### debug
+The option `-s` or `--scan` will run the scanner on the input file.
+
+# Project Structure
 
 ## dune-project
 This file is used to specify the version of dune to use, among other globs.
@@ -17,31 +39,26 @@ This file is used to provide information to `opam`, The project's package manage
 ## .ocamlformat
 Don't edit this file. This let's us run `dune fmt` to automatically format our code.
 
-## hello
-hello world with dune example
-
 ## lib
 everything here is built with `dune build` automatically when we build from the top level directory
 
-### calc
-a calculator example
+### hello
+hello world
 
-### calc2
-another calculator example
+### core
+The core of the project. This is where the lexer, parser, and abstract syntax tree are defined.
+* lexer.mll (builds with `ocamllex`)
+* parser.mly (builds with `ocamllyacc`)
+* ast.mli (the abstract syntax tree)
 
 ### listener
 Opens a socket and listens for incoming connections,
 then echoes the data back to the client.
 
 ## bin
-The .ml files that will become executables go here.
-
-There are a few examples here now, but they will be moved or deleted eventually.
-
-## src
-Right now, this is just a renamed nanoc scanner.
+This is where the `sockit` executable is built. There is one file, `main.ml`, which is the entry point for the program.
 
 # TODO
-require `dune clean` and `dune fmt` before pushing to the repo
-* set up a git hook
+* require `dune clean` and `dune fmt` before pushing to the repo
+    - this can be done with a git hook
 

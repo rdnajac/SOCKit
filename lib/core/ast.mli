@@ -5,7 +5,7 @@ type binop = Add | Sub | Mul | Div | Mod
 type typ = Int | Bool
 
 type expr =
-  | Literal of int
+  | Lit of int
   | BoolLit of bool
   | Var of string
   | BinOp of expr * binop * expr

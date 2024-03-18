@@ -1,6 +1,4 @@
-%{
-open Ast
-%}
+%{ open Ast %}
 
 %token <int> LITERAL
 %token <string> ID
@@ -37,7 +35,7 @@ statement:
   | expr SEMI { Expr $1 }
 
 expr:
-  | LITERAL { Literal $1 }
+  | LITERAL { Lit $1 }
   | ID { Var $1 }
   | expr ADD expr { BinOp($1, Add, $3) }
   | expr SUB expr { BinOp($1, Sub, $3) }
