@@ -1,6 +1,6 @@
 (library
- (name SOCKcore)
- (modules ast lexer parser)
+ (name corelib)
+ (public_name sock.core)
  (modules_without_implementation ast))
 
 (ocamllex lexer)
