@@ -9,6 +9,34 @@ dune build
 
 Optionally, run `dune install` to install the project to your system.
 
+## Project Structure
+```
+sockit/
+│
+├── bin/
+│   ├── main.ml
+│   └── dune
+│
+├── lib/
+│   ├── core/
+│   │   ├── lexer.mll
+│   │   ├── parser.mly
+│   │   ├── ast.mli
+│   │   └── dune
+│   ├── argparse.ml
+│   ├── sock.ml
+│   ├── symbol_table.ml
+│   └── dune
+│
+├── test/
+│   ├── test_hello.ml
+│   └── dune
+│
+├── dune-project
+└── sock.opam
+
+```
+
 ### Hello World
 To make sure the project builds correctly run `dune exec -- sockit --hello`.
 If you opted to install the project, you can simply run `sockit --hello` instead.

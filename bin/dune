@@ -1,8 +1,4 @@
 (executable
  (name main)
- (modules main)
- ;(modules main hello repl file)
  (public_name sockit)
- ;(libraries hello SOCKlib)
- (libraries hello)
-)
+ (libraries lib))
