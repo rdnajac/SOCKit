@@ -1,9 +1,8 @@
 open Hello
 
 let test_hello () =
-  print_endline "Testing Hello...";
+  print_endline "Testing...";
   say_hello ();
-  print_endline "Hello test expected to be printed above."
+  print_endline "OK!"
 
 let () = test_hello ()
-
