@@ -6,7 +6,7 @@ maintainer: ["Ryan Najac"]
 authors: [
   "Quentin Autry" "Hakim El Ghazi" "Ryan Najac" "Misha Smirnov" "Stacey Yao"
 ]
-license: "LICENSE"
+license: "BSD-3-Clause"
 tags: ["topics" "to describe" "your" "project"]
 homepage: "https://github.com/rdnajac/SOCKit"
 doc: "https://url/to/documentation"
@@ -14,8 +14,7 @@ bug-reports: "https://github.com/rdnajac/SOCKit/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.13"}
-  "ocamllex"
-  "ocamlyacc"
+  "ounit2"
   "odoc" {with-doc}
 ]
 build: [

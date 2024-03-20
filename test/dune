@@ -1,3 +1,4 @@
-(test
- (name test_hello)
- (libraries hello))
+;(tests
+;(names test_hello test_eval)
+;(libraries sock.lib ounit2))
+

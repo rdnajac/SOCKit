@@ -7,10 +7,10 @@ OCAMLYACC = ocamlyacc
 all: ast parser lexer
 
 ast:
-	$(OCAMLC) -c ast.mli
+	$(OCAMLC) -c ast.ml
 
 parser: ast
-	$(OCAMLYACC) parser.mly
+	$(OCAMLYACC) -v parser.mly
 	$(OCAMLC) -c parser.mli
 	$(OCAMLC) -c parser.ml
 
@@ -20,4 +20,3 @@ lexer: parser
 
 clean:
 	rm -f *.cmi *.cmo lexer.ml parser.ml parser.mli parser.output
-

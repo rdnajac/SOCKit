@@ -1,5 +1,7 @@
 (library
- (name lib)
- (public_name sock.lib)
- (modules sock symboltable argparse)
- (libraries sock.core sock.hello))
+ (name mylib)
+ (public_name sock.lib))
+
+(ocamllex lexer)
+
+(ocamlyacc parser)

@@ -1,8 +1,0 @@
-(library
- (name corelib)
- (public_name sock.core)
- (modules_without_implementation ast))
-
-(ocamllex lexer)
-
-(ocamlyacc parser)

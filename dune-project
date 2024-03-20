@@ -16,14 +16,14 @@
   "Ryan Najac"
   )
 
-(license LICENSE)
+(license BSD-3-Clause)
 
 (package
   (name sock)
   (synopsis "Socket Oriented Concurrency Kit")
   (description "PLT Spring 2024 Team Programming Project")
   (documentation https://url/to/documentation)
-  (depends ocaml dune ocamllex ocamlyacc)
+  (depends ocaml dune ounit2)
   (source
     (github rdnajac/SOCKit))
   (tags

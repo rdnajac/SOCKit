@@ -1,8 +1,12 @@
-open Hello
-
-let test_hello () =
+let test_hello _ =
+  Hello.say_hello ();
   print_endline "Testing...";
-  say_hello ();
-  print_endline "OK!"
 
-let () = test_hello ()
+let hello_suite = "Hello Tests" >::: [
+  "hello" >:: test_hello;
+]
+
+
+let () =
+  run_test_tt_main hello_suite
+

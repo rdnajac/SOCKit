@@ -1,5 +1,0 @@
-;(library
-; (name listener)
-; (public_name sock.listener)
-; (synopsis "A simple listener for Unix domain sockets")
-; (libraries unix))
