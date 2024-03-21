@@ -2,27 +2,25 @@
 open Ast
 
 type sexpr = typ * sx
+
 and sx =
-  | SLiteral of int
-  | SFliteral of string
-  | SBoolLit of bool
+  | SLit of int
   | SId of string
-  | SBinop of sexpr * bop * sexpr
+  | SBop of sexpr * bop * sexpr
   | SUnop of uop * sexpr
-  | SAssign of string * sexpr
+  | SAss of string * sexpr
   | SCall of string * sexpr list
   | SNoexpr
 
 type sstmt =
   | SBlock of sstmt list
   | SExpr of sexpr
-  | SReturn of sexpr
   | SIf of sexpr * sstmt * sstmt
-  | SFor of sexpr * sexpr * sexpr * sstmt
   | SWhile of sexpr * sstmt
+  | SReturn of sexpr
 
 type sfunc_decl = {
-  styp : typ;
+  srtyp : typ;
   sfname : string;
   sformals : bind list;
   slocals : bind list;

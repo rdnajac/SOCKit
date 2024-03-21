@@ -6,9 +6,8 @@
 %token PLUS MINUS TIMES DIVIDE MODULO ASSIGN
 %token ASSIGN (* PLUSASS MINUSASS TIMESASS DIVIDEASS MODULOASS *)
 %token IF ELSE WHILE RETURN
-%token INT BOOL (* TRUE FALSE *) VOID
+%token INT
 %token <int> LITERAL
-%token <bool> BLIT
 %token <string> ID
 %token EOF
 
@@ -26,7 +25,6 @@
 %left TIMES DIVIDE MODULO
 %right NOT
 
-
 %%
 
 program:
@@ -39,18 +37,18 @@ decls:
 
 fdecl:
     typ ID LPAREN formals_opt RPAREN LBRACE vdecl_list stmt_list RBRACE {
-        { typ = $1; fname = $2; formals = List.rev $4;
+        { rtyp = $1; fname = $2; formals = List.rev $4;
           locals = List.rev $7; body = List.rev $8 } }
 
 formals_opt:
   | /* nothing */ { [] }
-  | formal_list { $1 }
+  | formal_list   { $1 }
 
 formal_list:
     | typ ID { [($1, $2)] }
     | formal_list COMMA typ ID { ($3,$4) :: $1 }
 
-typ: | INT { Int } | BOOL { Bool } | VOID { Void }
+typ: INT { Int }
 
 vdecl_list:
   | /* nothing */ { [] }
@@ -72,30 +70,29 @@ stmt:
   | WHILE LPAREN expr RPAREN stmt { While($3, $5) }
 
 expr:
-  | LITERAL { Lit($1) }
-  | BLIT   { Blit($1) }
-  | ID     { Id($1) }
-  | expr PLUS expr   { Bop($1, Add, $3) }
-  | expr MINUS expr  { Bop($1, Sub, $3) }
-  | expr TIMES expr  { Bop($1, Mul, $3) }
-  | expr DIVIDE expr { Bop($1, Div, $3) }
-  | expr MODULO expr { Bop($1, Mod, $3) }
-  | expr EQ expr     { Bop($1, Eq, $3) }
-  | expr NEQ expr    { Bop($1, Neq, $3) }
-  | expr LT expr     { Bop($1, Lt, $3) }
-  | expr LEQ expr     { Bop($1, Leq, $3) }
-  | expr GT expr     { Bop($1, Gt, $3) }
-  | expr GEQ expr     { Bop($1, Geq, $3) }
-  | expr AND expr    { Bop($1, And, $3) }
-  | expr OR expr     { Bop($1, Or, $3) }
-  | MINUS expr %prec NOT { Uop(Neg, $2) }
-  | NOT expr         { Uop(Not, $2) }
-  | ID ASSIGN expr   { Ass($1, $3) }
-  | ID LPAREN args_opt RPAREN { Call($1, $3) }
+  | LITERAL            { Lit($1) }
+  | ID                 { Id($1) }
+  | expr PLUS expr     { Bop($1, Add, $3) }
+  | expr MINUS expr    { Bop($1, Sub, $3) }
+  | expr TIMES expr    { Bop($1, Mul, $3) }
+  | expr DIVIDE expr   { Bop($1, Div, $3) }
+  | expr MODULO expr   { Bop($1, Mod, $3) }
+  | expr EQ expr       { Bop($1, Eq, $3) }
+  | expr NEQ expr      { Bop($1, Neq, $3) }
+  | expr LT expr       { Bop($1, Lt, $3) }
+  | expr LEQ expr      { Bop($1, Leq, $3) }
+  | expr GT expr       { Bop($1, Gt, $3) }
+  | expr GEQ expr      { Bop($1, Geq, $3) }
+  | expr AND expr      { Bop($1, And, $3) }
+  | expr OR expr       { Bop($1, Or, $3) }
+  | ID ASSIGN expr     { Ass($1, $3) }
   | LPAREN expr RPAREN { $2 }
+  | NOT expr           { Uop(Not, $2) }
+  | MINUS expr %prec NOT { Uop(Neg, $2) }
+  | ID LPAREN args_opt RPAREN { Call($1, $3) }
 
 expr_opt:
-  | /* nothing */ { Noexpr }
+  | { Noexpr }
   | expr { $1 }
 
 args_opt:
