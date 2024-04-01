@@ -15,14 +15,14 @@ let rec eval (env : env) (expr : Ast.expr) : int * env =
       if NameMap.mem var locals then (NameMap.find var locals, env)
       else if NameMap.mem var globals then (NameMap.find var globals, env)
       else raise (Failure ("undeclared identifier " ^ var))
-  | Ass (var, e) ->
+  | Assign (var, e) ->
       let v, env' = eval env e in
       let locals, globals = env' in
       if NameMap.mem var locals then (v, (NameMap.add var v locals, globals))
       else if NameMap.mem var globals then
         (v, (locals, NameMap.add var v globals))
       else raise (Failure ("undeclared identifier " ^ var))
-  | Bop (e1, op, e2) ->
+  | Binop (e1, op, e2) ->
       let v1, env' = eval env e1 in
       let v2, env'' = eval env' e2 in
       let result =
@@ -35,18 +35,31 @@ let rec eval (env : env) (expr : Ast.expr) : int * env =
         | And -> if v1 != 0 && v2 != 0 then 1 else 0
         | Or -> if v1 != 0 || v2 != 0 then 1 else 0
         | Lt -> if v1 < v2 then 1 else 0
-        | Leq -> if v1 <= v2 then 1 else 0
+        | Le -> if v1 <= v2 then 1 else 0
         | Gt -> if v1 > v2 then 1 else 0
-        | Geq -> if v1 >= v2 then 1 else 0
+        | Ge -> if v1 >= v2 then 1 else 0
         | Eq -> if v1 = v2 then 1 else 0
         | Neq -> if v1 != v2 then 1 else 0
       in
       (result, env'')
-  | Uop (op, e) ->
-      let v, env' = eval env e in
-      let result = match op with Neg -> -v | Not -> if v = 0 then 1 else 0 in
-      (result, env')
-  | Call (_, _) -> raise (Failure "Function calls not implemented")
+  | Call (fname, actuals) ->
+    let locals, globals = env in
+    (* Find the function declaration by name in globals. This assumes
+       function declarations are stored in globals, which might not be 
+       your intended design. *)
+    let func_decl = NameMap.find fname globals in
+    (* Evaluate the actual arguments in the current environment *)
+    let actuals_evaluated, env' = List.fold_left
+        (fun (acc, env) expr ->
+            let result, env_updated = eval env expr in
+            (result :: acc, env_updated))
+        ([], env)
+        (List.rev actuals) in
+    (* Now, execute the function with the evaluated arguments.
+       This requires you to have a function like `execute_function` that
+       is responsible for executing the function body. *)
+    let globals' = execute_function func_decl actuals_evaluated globals in
+    (0, (locals, globals'))
 
 let rec exec (env : env) (stmt : Ast.stmt) : env =
   match stmt with

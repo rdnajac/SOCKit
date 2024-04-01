@@ -1,4 +1,3 @@
-open Mylib
 open Hello
 
 type action = Ast | Bytecode | Compile | Interpret | Hello | Help
@@ -19,7 +18,6 @@ let input_file = ref ""
 let set_file f = input_file := f
 
 let parse_args () =
-  (* Add an anonymous argument handler for setting the input file *)
   Arg.parse speclist set_file usage_msg;
   !action
 
@@ -29,7 +27,6 @@ let read_input_file () =
     let lexbuf = Lexing.from_channel channel in
     let ast = Parser.program Lexer.token lexbuf in
     close_in channel;
-    (* Close the file after reading *)
     ast)
   else failwith "No input file provided"
 

@@ -1,7 +1,5 @@
 (library
- (name mylib)
- (public_name sock.lib))
+  (name mylib)
+  (public_name sock.mylib)
+  (libraries ast sast))
 
-(ocamllex lexer)
-
-(ocamlyacc parser)

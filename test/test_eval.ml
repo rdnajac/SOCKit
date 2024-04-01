@@ -1,5 +1,4 @@
 open OUnit2
-open Mylib
 open Interpreter
 open Ast
 
