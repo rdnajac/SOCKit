@@ -100,3 +100,8 @@ everything here is built with `dune build` automatically when we build from the 
 * pin llvm version in opam file
 * check cross-platform compatibility
 
+## TODO Bugs
+* unused variable warnings in codegen.ml
+* unused variable warnings in interpreter.ml
+* linking error with llvm
+
