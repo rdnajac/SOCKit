@@ -1,4 +1,5 @@
 open Hello
+open Mylib
 
 type action = Ast | Bytecode | Compile | Interpret | Hello | Help
 
@@ -25,7 +26,7 @@ let read_input_file () =
   if !input_file <> "" then (
     let channel = open_in !input_file in
     let lexbuf = Lexing.from_channel channel in
-    let ast = Parser.program Lexer.token lexbuf in
+    let ast = Parser.program Scanner.token lexbuf in
     close_in channel;
     ast)
   else failwith "No input file provided"
@@ -35,7 +36,7 @@ let () =
   match action with
   | Ast ->
       let ast = read_input_file () in
-      print_string (Prettyprinter.string_of_program ast)
+      print_string (Ast.string_of_program ast)
   | Bytecode -> print_string "Bytecode not implemented yet\n"
   | Compile -> print_string "Compile not implemented yet\n"
   | Interpret ->

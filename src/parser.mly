@@ -1,9 +1,10 @@
 %{ open Ast %}
 
-%token SEMI LPAREN RPAREN LBRACE RBRACE PLUS MINUS ASSIGN
-%token EQ NEQ LT AND OR
+%token LPAREN RPAREN LBRACE RBRACE 
+%token PLUS MINUS TIMES DIVIDE MODULUS ASSIGN
+%token EQ NEQ LT GT LE GE AND OR
 %token IF ELSE WHILE INT BOOL
-%token RETURN COMMA
+%token SEMI RETURN COMMA
 %token <int> LITERAL
 %token <bool> BLIT
 %token <string> ID
@@ -11,13 +12,15 @@
 
 %start program
 %type <Ast.program> program
-
+%nonassoc NOELSE
+%nonassoc ELSE
 %right ASSIGN
 %left OR
 %left AND
 %left EQ NEQ
-%left LT
+%left LT GT LE GE
 %left PLUS MINUS
+%left TIMES DIVIDE MODULUS
 
 %%
 
@@ -33,7 +36,6 @@ vdecl_list:
   /*nothing*/ { [] }
   | vdecl SEMI vdecl_list  {  $1 :: $3 }
 
-/* int x */
 vdecl:
   typ ID { ($1, $2) }
 
@@ -41,7 +43,6 @@ typ:
     INT   { Int   }
   | BOOL  { Bool  }
 
-/* fdecl */
 fdecl:
   vdecl LPAREN formals_opt RPAREN LBRACE vdecl_list stmt_list RBRACE
   {
@@ -54,7 +55,6 @@ fdecl:
     }
   }
 
-/* formals_opt */
 formals_opt:
   /*nothing*/ { [] }
   | formals_list { $1 }
@@ -78,14 +78,14 @@ stmt:
   | RETURN expr SEMI                        { Return $2      }
 
 expr:
-    LITERAL          { Literal($1)            }
-  | BLIT             { BoolLit($1)            }
+    LITERAL          { Lit($1) }
+  | BLIT             { Blit($1)}
   | ID               { Id($1)                 }
   | expr PLUS   expr { Binop($1, Add,   $3)   }
   | expr MINUS  expr { Binop($1, Sub,   $3)   }
-  | expr EQ     expr { Binop($1, Equal, $3)   }
+  | expr EQ     expr { Binop($1, Eq, $3)   }
   | expr NEQ    expr { Binop($1, Neq, $3)     }
-  | expr LT     expr { Binop($1, Less,  $3)   }
+  | expr LT     expr { Binop($1, Lt,  $3)   }
   | expr AND    expr { Binop($1, And,   $3)   }
   | expr OR     expr { Binop($1, Or,    $3)   }
   | ID ASSIGN expr   { Assign($1, $3)         }

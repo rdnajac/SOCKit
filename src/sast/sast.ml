@@ -1,5 +1,3 @@
-(* Semantically-checked Abstract Syntax Tree and functions for printing it *)
-
 open Ast
 
 type sexpr = typ * sx
@@ -20,7 +18,6 @@ type sstmt =
   | SWhile of sexpr * sstmt
   | SReturn of sexpr
 
-(* func_def: ret_typ fname formals locals body *)
 type sfunc_def = {
   srtyp : typ;
   sfname : string;
@@ -31,7 +28,8 @@ type sfunc_def = {
 
 type sprogram = bind list * sfunc_def list
 
-(* Pretty-printing functions *)
+(* pretty-printing *)
+
 let rec string_of_sexpr (t, e) =
   "(" ^ string_of_typ t ^ " : "
   ^ (match e with

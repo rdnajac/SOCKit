@@ -1,9 +1,20 @@
-(* Abstract Syntax Tree and functions for printing it *)
+type op =
+  | Add
+  | Sub
+  | Mul
+  | Div
+  | Mod
+  | Eq
+  | Neq
+  | And
+  | Or
+  | Lt
+  | Gt
+  | Le
+  | Ge
 
-type op = Add | Sub | Mul | Div | Mod | Eq | Neq | And | Or | Lt | Gt | Le | Ge
-
-(* type of expression *)
 type typ = Int | Bool | Void
+type bind = typ * string
 
 type expr =
   | Lit of int
@@ -12,7 +23,6 @@ type expr =
   | Binop of expr * op * expr
   | Assign of string * expr
   | Call of string * expr list
-  | Noexpr
 
 type stmt =
   | Block of stmt list
@@ -21,10 +31,6 @@ type stmt =
   | While of expr * stmt
   | Return of expr
 
-(* int x: name binding *)
-type bind = typ * string
-
-(* func_def: ret_typ fname formals locals body *)
 type func_def = {
   rtyp : typ;
   fname : string;
@@ -35,7 +41,8 @@ type func_def = {
 
 type program = bind list * func_def list
 
-(* Pretty-printing functions *)
+(* pretty-printing *)
+
 let string_of_op = function
   | Add -> "+"
   | Sub -> "-"
@@ -61,7 +68,6 @@ let rec string_of_expr = function
   | Assign (v, e) -> v ^ " = " ^ string_of_expr e
   | Call (f, el) ->
       f ^ "(" ^ String.concat ", " (List.map string_of_expr el) ^ ")"
-  | Noexpr -> ""
 
 let rec string_of_stmt = function
   | Block stmts ->
