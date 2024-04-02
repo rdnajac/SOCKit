@@ -154,5 +154,4 @@ let check (globals, functions) =
       slocals = func.locals;
       sbody = check_stmt_list func.body;
     }
-  in
-  List.map check_function functions
+  in (globals, List.map check_function functions)
