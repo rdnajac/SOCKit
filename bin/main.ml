@@ -6,14 +6,15 @@ type action = Ast | Sast | Llvm | Interpret | Hello | Help
 let action = ref Help
 let input_file = ref ""
 
-let speclist = [
-  ("-a", Arg.Unit (fun () -> action := Ast), "Print the AST");
-  ("-s", Arg.Unit (fun () -> action := Sast), "Print the SAST");
-  ("-l", Arg.Unit (fun () -> action := Llvm), "Print the LLVM IR");
-  ("-i", Arg.Unit (fun () -> action := Interpret), "Interpret the program");
-  ("--hello", Arg.Unit (fun () -> action := Hello), "Say Hello");
-  ("-h", Arg.Unit (fun () -> action := Help), "Print this help message");
-]
+let speclist =
+  [
+    ("-a", Arg.Unit (fun () -> action := Ast), "Print the AST");
+    ("-s", Arg.Unit (fun () -> action := Sast), "Print the SAST");
+    ("-l", Arg.Unit (fun () -> action := Llvm), "Print the LLVM IR");
+    ("-i", Arg.Unit (fun () -> action := Interpret), "Interpret the program");
+    ("--hello", Arg.Unit (fun () -> action := Hello), "Say Hello");
+    ("-h", Arg.Unit (fun () -> action := Help), "Print this help message");
+  ]
 
 let usage_msg = "Usage: sockit [-a|-s|-l|-c|-i|--hello|-h] [<file>]"
 let set_file f = input_file := f
@@ -30,7 +31,8 @@ let process_action action ast =
       print_endline (Sast.string_of_sprogram sast)
   | Llvm ->
       (*let sast = Semant.check ast in*)
-      let llvm_module = Codegen.translate ast in (*TODO sould this be sast?*)
+      let llvm_module = Codegen.translate ast in
+      (*TODO sould this be sast?*)
       print_endline (Llvm.string_of_llmodule llvm_module)
   | Interpret -> Interpreter.run ast
   | _ -> ()
@@ -47,4 +49,3 @@ let () =
       let ast = Parser.program Scanner.token lexbuf in
       close_in channel;
       process_action selected_action ast
-

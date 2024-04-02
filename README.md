@@ -83,6 +83,20 @@ everything here is built with `dune build` automatically when we build from the 
 * interpreter.ml (not a compiler!)
 
 # TODO
+## TODO for Hello World Submission
+**URGENT**
+
+* summarize the work done so far and work left until completion (with the expected timeline) in the README.md file
+* include source code in *our* language in the `/test/` directory
+* update the language implementation for SOCKit features
+
+## TODO for Final Submission
 * require `dune clean` and `dune fmt` before pushing to the repo
     - this can be done with a git hook
+    - for now, just remember to do it please
+* set up testing
+    - process example files
+    - add a `dune runtest` command
+* pin llvm version in opam file
+* check cross-platform compatibility
 
