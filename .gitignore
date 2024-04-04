@@ -64,3 +64,5 @@ tmp/
 *.synctex.gz
 *.fdb_latexmk
 *.toc
+
+README.pdf
