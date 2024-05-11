@@ -53,7 +53,6 @@ let translate (globals, functions) =
     (* Translate an expression *)
     let rec expr : expr -> bstmt list = function
       | Lit i -> [ Lit i ]
-      | Blit b -> [ (if b then Lit 1 else Lit 0) ]
       | Id s -> (
           try [ Lfp (StringMap.find s env.local_index) ]
           with Not_found -> (

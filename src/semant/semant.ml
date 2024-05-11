@@ -69,7 +69,6 @@ let check (globals, functions) =
 
     let rec check_expr : expr -> sexpr = function
       | Lit l -> (Int, SLit l)
-      | Blit l -> (Bool, SBlit l)
       | Id var -> (type_of_identifier var, SId var)
       | Assign (var, e) as ex ->
           let lt = type_of_identifier var and rt, e' = check_expr e in
@@ -88,11 +87,10 @@ let check (globals, functions) =
           if t1 = t2 then
             let t =
               match op with
-              | (Add | Sub) when t1 = Int -> Int
-              | Eq | Neq -> Bool
-              | Le when t1 = Int -> Bool
-              | (And | Or) when t1 = Bool -> Bool
-              | _ -> raise (Failure err)
+              | Add | Sub | Mul | Div | Mod
+              | Eq | Neq | And | Or
+              | Lt | Le | Gt | Ge
+              when t1 = Int -> Int
             in
             (t, SBinop ((t1, e1'), op, (t2, e2')))
           else raise (Failure err)
@@ -118,9 +116,6 @@ let check (globals, functions) =
     in
 
     let check_bool_expr e =
-      let t, e' = check_expr e in
-      match t with
-      | Bool -> (t, e')
       | _ ->
           raise (Failure ("expected Boolean expression in " ^ string_of_expr e))
     in
