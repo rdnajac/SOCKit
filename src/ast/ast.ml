@@ -95,6 +95,9 @@ let rec string_of_stmt = function
       ^ string_of_stmt s2
   | While (e, s) -> "while (" ^ string_of_expr e ^ ") " ^ string_of_stmt s
 
+(* let string_of_vdecl vdecl = string_of_bind vdecl *)
+let string_of_vdecl (t, id) = string_of_typ t ^ " " ^ id ^ ";\n"
+
 let string_of_fdecl fdecl =
   string_of_typ fdecl.rtyp ^ " " ^ fdecl.fname ^ "("
   ^ String.concat ", " (List.map snd fdecl.formals)

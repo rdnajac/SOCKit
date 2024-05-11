@@ -4,7 +4,6 @@ type sexpr = typ * sx
 
 and sx =
   | SLit of int
-  | SBlit of bool
   | SId of string
   | SBinop of sexpr * op * sexpr
   | SAssign of string * sexpr
@@ -34,8 +33,6 @@ let rec string_of_sexpr (t, e) =
   "(" ^ string_of_typ t ^ " : "
   ^ (match e with
     | SLit l -> string_of_int l
-    | SBlit true -> "true"
-    | SBlit false -> "false"
     | SId s -> s
     | SNoexpr -> ""
     | SBinop (e1, o, e2) ->

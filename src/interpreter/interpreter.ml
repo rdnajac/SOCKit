@@ -7,18 +7,17 @@ type env = vsymtab * vsymtab
 exception ReturnException of int * vsymtab
 
 let run ((vars, funcs) : program) : unit =
-  let func_decls : func_def NameMap.t =
+  let func_decls : fdecl NameMap.t =
     List.fold_left
       (fun funcs fdecl -> NameMap.add fdecl.fname fdecl funcs)
       NameMap.empty funcs
   in
 
-  let rec call (fdecl : func_def) (actuals : int list) (globals : vsymtab) :
+  let rec call (fdecl : fdecl) (actuals : int list) (globals : vsymtab) :
       vsymtab =
     let rec eval (env : env) (exp : expr) : int * env =
       match exp with
       | Lit i -> (i, env)
-      | Blit b -> ((if b then 1 else 0), env)
       | Assign (var, e) ->
           let v, env' = eval env e in
           let locals, globals = env' in
@@ -39,7 +38,6 @@ let run ((vars, funcs) : program) : unit =
       | Binop (e1, op, e2) ->
           let v1, env' = eval env e1 in
           let v2, env'' = eval env' e2 in
-          let boolean i = if i then 1 else 0 in
           let result =
             match op with
             | Add -> v1 + v2

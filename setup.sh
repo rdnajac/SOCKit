@@ -1,57 +1,52 @@
 #!/bin/bash
+set -euo pipefail
 
-# Function to update shell environment with opam
-update_opam_env() {
-    eval $(opam env --set-switch)
+# Helper functions for colored messages
+okay() { echo -e "\033[92m$1\033[0m"; }
+info() { echo -e "\033[94m$1\033[0m"; }
+warn() { echo -e "\033[91m$1\033[0m"; }
+bail() { warn "${1}"; exit "${2:-1}"; }
+
+# update_opam_env() { eval "$(opam env --set-switch)"; }
+update_opam_env() { eval "$(opam env)" && eval  "$(opam env --set-switch)"; }
+
+assert_installed() {
+  if command -v "$1" > /dev/null; then
+    okay "$1 is installed."
+  else
+    bail "$1 is not installed. Please install $1 and try again."
+  fi
 }
 
-# Function to check if a command is installed
-check_installed() {
-    command -v "$1" &>/dev/null || { echo "$1 is not installed. Please install $1 and try again."; exit 1; }
-}
+# Requirements
+assert_installed ocaml
+assert_installed opam
 
-# Check for OCaml and opam installation
-check_installed ocaml
-check_installed opam
-
-echo "Setting up opam..."
-if ! opam init --auto-setup --yes >/dev/null 2>&1; then
-    echo "Failed to initialize opam. Exiting."
-    exit 1
-fi
+info "Setting up opam..."
+opam init --auto-setup --yes > /dev/null 2>&1 || bail "Failed to initialize opam."
 update_opam_env
 
-# Check if a local switch exists for this directory
-if opam switch show >/dev/null 2>&1; then
-    echo "OPAM switch for this directory already exists. Continuing..."
+# Check and set up OPAM switch
+if opam switch show > /dev/null 2>&1; then
+    okay "OPAM switch for this directory already exists."
 else
-    echo "Creating a local OPAM switch with the latest base compiler..."
-    if ! opam switch create . --deps-only --yes >/dev/null 2>&1; then
-        echo "Failed to create a local OPAM switch. Exiting."
-        exit 1
-    fi
+    info "Creating a local OPAM switch with the latest base compiler..."
+    opam switch create . --deps-only --yes > /dev/null 2>&1 || bail "Failed to create a local OPAM switch."
     update_opam_env
 fi
 
-echo "Updating opam and upgrading packages..."
-if ! opam update && opam upgrade --yes; then
-    echo "Failed to update and upgrade packages."
-    exit 1
-fi
+info "Updating opam and upgrading packages..."
+yes | opam update || true
+yes | opam upgrade || true
 
-echo "Installing dependencies from the .opam file..."
-if ! opam install . --deps-only --yes >/dev/null 2>&1; then
-    echo "Failed to install dependencies from the .opam file."
-    exit 1
-fi
+info "Installing dependencies from the .opam file..."
+opam install . --deps-only --yes > /dev/null 2>&1 || bail "Failed to install dependencies."
 
-echo "Dependencies installed successfully."
+okay "Dependencies installed successfully."
 
-echo "Building the project..."
-if ! dune build >/dev/null 2>&1; then
-    echo "Failed to build the project."
-    exit 1
-fi
+info "Building the project..."
+dune build
 
-echo "Project built successfully."
-
+#okay "Project built successfully."
+# info "Testing the project..."
+# dune runtest
