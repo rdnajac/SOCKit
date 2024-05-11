@@ -1,0 +1,4 @@
+(library
+ (name semant)
+ (public_name sock.semant)
+ (libraries ast sast))

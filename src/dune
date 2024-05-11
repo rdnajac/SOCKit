@@ -1,0 +1,8 @@
+(library
+ (name mylib)
+ (public_name sock.mylib)
+ (libraries ast sast semant interpreter codegen))
+
+(ocamllex scanner)
+
+(ocamlyacc parser)

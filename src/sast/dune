@@ -1,0 +1,4 @@
+(library
+ (name sast)
+ (public_name sock.sast)
+ (libraries ast))
