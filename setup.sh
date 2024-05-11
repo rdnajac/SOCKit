@@ -7,7 +7,8 @@ info() { echo -e "\033[94m$1\033[0m"; }
 warn() { echo -e "\033[91m$1\033[0m"; }
 bail() { warn "${1}"; exit "${2:-1}"; }
 
-update_opam_env() { eval "$(opam env --set-switch)"; }
+# update_opam_env() { eval "$(opam env --set-switch)"; }
+update_opam_env() { eval "$(opam env)" && eval  "$(opam env --set-switch)"; }
 
 assert_installed() {
   if command -v "$1" > /dev/null; then
