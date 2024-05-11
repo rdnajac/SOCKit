@@ -42,7 +42,6 @@ let check (globals, functions) =
   let function_decls =
     List.fold_left add_func StringMap.empty (built_in_decls @ functions)
   in
-
   let find_func s = StringMap.find s function_decls in
 
   let _ = find_func "main" in
@@ -87,10 +86,11 @@ let check (globals, functions) =
           if t1 = t2 then
             let t =
               match op with
-              | Add | Sub | Mul | Div | Mod
-              | Eq | Neq | And | Or
-              | Lt | Le | Gt | Ge
-              when t1 = Int -> Int
+              | Add | Sub | Mul | Div | Mod | Eq | Neq | And | Or | Lt | Gt | Le
+              | Ge
+                when t1 = Int ->
+                  Int
+              | _ -> raise (Failure "unsupported operator or type")
             in
             (t, SBinop ((t1, e1'), op, (t2, e2')))
           else raise (Failure err)
@@ -115,24 +115,29 @@ let check (globals, functions) =
             (fd.rtyp, SCall (fname, args'))
     in
 
-    let check_bool_expr e =
-      | _ ->
-          raise (Failure ("expected Boolean expression in " ^ string_of_expr e))
-    in
-
     let rec check_stmt_list = function
       | [] -> []
-      | Block sl :: sl' -> check_stmt_list (sl @ sl') (* Flatten blocks *)
+      | Block sl :: sl' -> check_stmt_list (sl @ sl')
       | s :: sl -> check_stmt s :: check_stmt_list sl
-    (* Return a semantically-checked statement i.e. containing sexprs *)
     and check_stmt = function
-      (* A block is correct if each statement is correct and nothing
-         follows any Return statement.  Nested blocks are flattened. *)
       | Block sl -> SBlock (check_stmt_list sl)
       | Expr e -> SExpr (check_expr e)
       | If (e, st1, st2) ->
-          SIf (check_bool_expr e, check_stmt st1, check_stmt st2)
-      | While (e, st) -> SWhile (check_bool_expr e, check_stmt st)
+          let t, e' = check_expr e in
+          if t = Int then SIf ((t, e'), check_stmt st1, check_stmt st2)
+          else
+            raise
+              (Failure
+                 "If condition must be an integer expression evaluating to 0 \
+                  or 1")
+      | While (e, st) ->
+          let t, e' = check_expr e in
+          if t = Int then SWhile ((t, e'), check_stmt st)
+          else
+            raise
+              (Failure
+                 "While condition must be an integer expression evaluating to \
+                  0 or 1")
       | Return e ->
           let t, e' = check_expr e in
           if t = func.rtyp then SReturn (t, e')

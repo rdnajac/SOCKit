@@ -13,12 +13,10 @@ let translate (globals, functions) =
   let the_module = L.create_module context "SOCKit"
   and i32_t = L.i32_type context
   and i8_t = L.i8_type context
-  and i1_t = L.i1_type context
   and void_t = L.void_type context in
 
   let ltype_of_typ = function
     | A.Int -> i32_t
-    | A.Bool -> i1_t
     | A.Void -> void_t
   in
 
@@ -78,7 +76,6 @@ let translate (globals, functions) =
 
     let rec expr builder = function
       | A.Lit i -> L.const_int i32_t i
-      | A.Blit b -> L.const_int i1_t (if b then 1 else 0)
       | A.Id s -> L.build_load (lookup s) s builder
       | A.Binop (e1, op, e2) ->
           let e1' = expr builder e1 and e2' = expr builder e2 in
