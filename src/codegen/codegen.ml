@@ -15,10 +15,7 @@ let translate (globals, functions) =
   and i8_t = L.i8_type context
   and void_t = L.void_type context in
 
-  let ltype_of_typ = function
-    | A.Int -> i32_t
-    | A.Void -> void_t
-  in
+  let ltype_of_typ = function A.Int -> i32_t | A.Void -> void_t in
 
   let global_vars =
     let global_var m (t, n) =
