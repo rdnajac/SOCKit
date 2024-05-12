@@ -1,4 +1,4 @@
 (library
  (name codegen)
  (public_name sock.codegen)
- (libraries llvm ast))
+ (libraries ast llvm))
