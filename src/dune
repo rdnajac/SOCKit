@@ -1,7 +1,16 @@
 (library
  (name mylib)
  (public_name sock.mylib)
- (libraries ast bytecode codegen compiler execute hello interpreter sast semant))
+ (libraries
+  ast
+  bytecode
+  codegen
+  compiler
+  execute
+  hello
+  interpreter
+  sast
+  semant))
 
 (ocamllex scanner)
 
