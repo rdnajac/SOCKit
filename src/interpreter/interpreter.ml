@@ -110,7 +110,7 @@ let run ((vars, funcs) : program) : unit =
         List.fold_left2
           (* (fun acc (ty, name) actual -> NameMap.add name actual acc) *)
           (* XXX quieting unused variable warning... *)
-          (fun acc (_, name) actual -> NameMap.add name actual acc)
+            (fun acc (_, name) actual -> NameMap.add name actual acc)
           NameMap.empty fdecl.formals actuals
       with Invalid_argument _ ->
         raise (Failure ("wrong number of arguments to " ^ fdecl.fname))
@@ -120,7 +120,7 @@ let run ((vars, funcs) : program) : unit =
       List.fold_left
         (* (fun acc (ty, name) -> NameMap.add name 0 acc) *)
         (* XXX quieting unused variable warning... *)
-        (fun acc (_, name) -> NameMap.add name 0 acc)
+          (fun acc (_, name) -> NameMap.add name 0 acc)
         locals fdecl.locals
     in
 
