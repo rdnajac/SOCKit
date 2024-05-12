@@ -23,7 +23,7 @@
   (synopsis "Socket Oriented Concurrency Kit")
   (description "PLT Spring 2024 Team Programming Project")
   (documentation https://url/to/documentation)
-  (depends ocaml dune llvm)
+  (depends ocaml ocamlformat dune llvm)
   (source
     (github rdnajac/SOCKit))
   (tags
