@@ -6,15 +6,20 @@ type env = vsymtab * vsymtab
 
 exception ReturnException of int * vsymtab
 
+(* Main entry point: run a program *)
+
 let run ((vars, funcs) : program) : unit =
+  (* Build function delcaration map *)
   let func_decls : fdecl NameMap.t =
     List.fold_left
       (fun funcs fdecl -> NameMap.add fdecl.fname fdecl funcs)
       NameMap.empty funcs
   in
 
+  (* Find a function in the function declaration map *)
   let rec call (fdecl : fdecl) (actuals : int list) (globals : vsymtab) :
       vsymtab =
+    (* Evaluate the function body with actuals bound to formal parameters *)
     let rec eval (env : env) (exp : expr) : int * env =
       match exp with
       | Lit i -> (i, env)
@@ -65,7 +70,9 @@ let run ((vars, funcs) : program) : unit =
           let ractuals, env' =
             List.fold_left
               (fun (actuals, env) actual ->
-                let v, env' = eval env actual in
+                (* let v, env' = eval env actual in *)
+                (* XXX quieting unused variable warning... *)
+                let v, _ = eval env actual in
                 (v :: actuals, env))
               ([], env) actuals
           in
@@ -75,6 +82,7 @@ let run ((vars, funcs) : program) : unit =
             (0, (locals, globals))
           with ReturnException (v, globals) -> (v, (locals, globals)))
     in
+    (* Execute a statement and return an updated environment *)
     let rec exec (env : env) (stmt : stmt) : env =
       match stmt with
       | Block stmts -> List.fold_left exec env stmts
@@ -91,14 +99,18 @@ let run ((vars, funcs) : program) : unit =
           in
           loop env
       | Return e ->
-          let v, (locals, globals) = eval env e in
+          (* let v, (locals, globals) = eval env e in *)
+          (* XXX quieting unused variable warning... *)
+          let v, (_, globals) = eval env e in
           raise (ReturnException (v, globals))
     in
 
     let locals : vsymtab =
       try
         List.fold_left2
-          (fun acc (ty, name) actual -> NameMap.add name actual acc)
+          (* (fun acc (ty, name) actual -> NameMap.add name actual acc) *)
+          (* XXX quieting unused variable warning... *)
+          (fun acc (_, name) actual -> NameMap.add name actual acc)
           NameMap.empty fdecl.formals actuals
       with Invalid_argument _ ->
         raise (Failure ("wrong number of arguments to " ^ fdecl.fname))
@@ -106,7 +118,9 @@ let run ((vars, funcs) : program) : unit =
 
     let locals : vsymtab =
       List.fold_left
-        (fun acc (ty, name) -> NameMap.add name 0 acc)
+        (* (fun acc (ty, name) -> NameMap.add name 0 acc) *)
+        (* XXX quieting unused variable warning... *)
+        (fun acc (_, name) -> NameMap.add name 0 acc)
         locals fdecl.locals
     in
 
@@ -116,7 +130,8 @@ let run ((vars, funcs) : program) : unit =
   let globals : vsymtab =
     List.fold_left
       (fun acc (_, name) -> NameMap.add name 0 acc)
+      (* XXX had to add an accumulator to make this compile *)
       NameMap.empty vars
   in
   try ignore (call (NameMap.find "main" func_decls) [] globals)
-  with Not_found -> raise (Failure "did not find the main() function")
+  with Not_found -> raise (Failure "did not find main()")
