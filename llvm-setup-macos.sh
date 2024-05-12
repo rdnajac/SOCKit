@@ -29,6 +29,7 @@ setup_llvm() {
         {
           echo "export PATH=\"$llvm_bin:\$PATH\""
           echo "export LLVM_CONFIG=\"$llvm_config\""
+          echo "export PKG_CONFIG_PATH=\"$llvm_path/lib/pkgconfig\""
         } >> ~/.zshrc
         source ~/.zshrc
         okay "Environment variables for LLVM $version added to .zshrc."
@@ -44,11 +45,14 @@ setup_llvm() {
 }
 
 # Prompt user to enter a valid LLVM version
-echo "Enter the LLVM version to setup (14, 15, or 16):"
-read -r version
-if [[ "$version" =~ ^(14|15|16)$ ]]; then
-  setup_llvm "$version"
-else
-  warn "Invalid version entered. Please enter one of 14, 15, or 16."
-fi
+# echo "Enter the LLVM version to setup (14, 15, or 16):"
+# read -r version
+# if [[ "$version" =~ ^(14|15|16)$ ]]; then
+#   setup_llvm "$version"
+# else
+#   warn "Invalid version entered. Please enter one of 14, 15, or 16."
+# fi
+
+# Setup LLVM 14
+setup_llvm 14
 

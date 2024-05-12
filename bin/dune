@@ -1,4 +1,9 @@
 (executable
  (name main)
  (public_name sockit)
- (libraries hello mylib))
+ (libraries hello llvm mylib)
+ (flags :standard
+        -cclib -Wl,-undefined,dynamic_lookup
+        -ccopt -L/opt/homebrew/opt/llvm@14/lib
+        -ccopt -I/opt/homebrew/opt/llvm@14/include))
+
