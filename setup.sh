@@ -47,6 +47,27 @@ okay "Dependencies installed successfully."
 info "Building the project..."
 dune build
 
-#okay "Project built successfully."
+# uncomment this when testing is set up
+# okay "Project built successfully."
 # info "Testing the project..."
 # dune runtest
+
+# if is darwin
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    info "Setting up LLVM..."
+    yes | brew install llvm@14.0.6
+    yes | opam install llvm.14.0.6
+    yes | opam install conf-llvm.14.0.6
+
+    info "Exporting LLVM environment variables..."
+    export PATH="/opt/homebrew/opt/llvm@14/bin:$PATH"
+    export LLVM_CONFIG="/opt/homebrew/opt/llvm@14/bin/llvm-config"
+
+    read -p "Do you want to add LLVM environment variables to your .zshrc? [y/n]: " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo 'export PATH="/opt/homebrew/opt/llvm@14/bin:$PATH"' >> ~/.zshrc
+        echo 'export LLVM_CONFIG="/opt/homebrew/opt/llvm@14/bin/llvm-config"' >> ~/.zshrc
+    fi
+fi
+
