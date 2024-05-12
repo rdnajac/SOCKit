@@ -3,8 +3,6 @@
 (* http://llvm.moe/ocaml/ *)
 
 module L = Llvm
-open Llvm.target
-open Llvm.scalar_opts
 module A = Ast
 module StringMap = Map.Make (String)
 
@@ -19,10 +17,7 @@ let translate (globals, functions) =
   and i8_t = L.i8_type context
   and void_t = L.void_type context in
 
-  let ltype_of_typ = function
-    | A.Int -> i32_t
-    | A.Void -> void_t
-  in
+  let ltype_of_typ = function A.Int -> i32_t | A.Void -> void_t in
 
   let global_vars =
     let global_var m (t, n) =
@@ -110,9 +105,7 @@ let translate (globals, functions) =
           let fdef, fdecl = StringMap.find f function_decls in
           let actuals = List.rev (List.map (expr builder) (List.rev act)) in
           let result =
-            match fdecl.A.rtyp with
-            | A.Void -> ""
-            | _ -> f ^ "_result"
+            match fdecl.A.rtyp with A.Void -> "" | _ -> f ^ "_result"
           in
           L.build_call fdef (Array.of_list actuals) result builder
     in
@@ -177,4 +170,3 @@ let translate (globals, functions) =
 
   List.iter build_function_body functions;
   the_module
-
