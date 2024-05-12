@@ -1,0 +1,4 @@
+(executable
+ (name test_ast_parser_scanner)
+ (libraries mylib)
+ (modules test_ast_parser_scanner))
