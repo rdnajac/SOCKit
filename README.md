@@ -1,4 +1,4 @@
-# SOCKit: Socker-Oriented Concurrency Kit
+# SOCKit: Socket-Oriented Concurrency Kit
 This project is built with [dune](https://dune.build/). Clone the repo and run `dune build` to build the project (don't `dune init`!).
 
 ```sh
